@@ -23,7 +23,13 @@
 #import "mParticle.h"
 #endif
 
-@interface MPKitCompanyName : NSObject <MPKitProtocol>
+#if defined(__has_include) && __has_include(<SkyhookContext/SHXAccelerator.h>)
+#import <SkyhookContext/SHXAccelerator.h>
+#else
+#import "SHXAccelerator.h"
+#endif
+
+@interface MPKitSkyhook : NSObject <MPKitProtocol, SHXAcceleratorDelegate>
 
 @property (nonatomic, strong, nonnull) NSDictionary *configuration;
 @property (nonatomic, strong, nullable) NSDictionary *launchOptions;
