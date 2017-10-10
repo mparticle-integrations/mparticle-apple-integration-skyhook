@@ -34,31 +34,30 @@ static NSString* skyhookAPIKey = @"apiKey";
 }
 
 + (void)load {
-    MPKitRegister *kitRegister = [[MPKitRegister alloc] initWithName:@"Skyhook" className:@"MPKitSkyhook" startImmediately:YES];
+    MPKitRegister *kitRegister = [[MPKitRegister alloc] initWithName:@"Skyhook" className:@"MPKitSkyhook"];
     [MParticle registerExtension:kitRegister];
 }
 
 #pragma mark - MPKitInstanceProtocol methods
 
 #pragma mark Kit instance and lifecycle
-- (nonnull instancetype)initWithConfiguration:(nonnull NSDictionary *)configuration startImmediately:(BOOL)startImmediately
-{
-    self = [super init];
+- (MPKitExecStatus *)didFinishLaunchingWithConfiguration:(NSDictionary *)configuration {
+    MPKitExecStatus *execStatus = nil;
+
     NSString *appKey = configuration[skyhookAPIKey];
 
-    if (!self || !appKey)
+    if (!appKey)
     {
-        return nil;
+        execStatus = [[MPKitExecStatus alloc] initWithSDKCode:[[self class] kitCode] returnCode:MPKitReturnCodeRequirementsNotMet];
+        return execStatus;
     }
 
     _configuration = configuration;
 
-    if (startImmediately)
-    {
-        [self start];
-    }
+    [self start];
 
-    return self;
+    execStatus = [[MPKitExecStatus alloc] initWithSDKCode:[[self class] kitCode] returnCode:MPKitReturnCodeSuccess];
+    return execStatus;
 }
 
 - (void)start
