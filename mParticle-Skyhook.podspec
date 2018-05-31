@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = "mParticle-Skyhook"
-    s.version          = "7.3.8"
+    s.version          = "7.3.9"
     s.summary          = "Skyhook integration for mParticle"
 
     s.description      = <<-DESC
