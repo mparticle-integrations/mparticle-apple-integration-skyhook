@@ -68,7 +68,7 @@ static NSString* skyhookAPIKey = @"apiKey";
         self.accelerator = [[SHXAccelerator alloc] initWithKey:self.configuration[skyhookAPIKey]];
         self.accelerator.delegate = self;
         [self.accelerator startMonitoringForAllCampaigns];
-        _started = YES;
+        self->_started = YES;
 
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *userInfo = @{mParticleKitInstanceKey:[[self class] kitCode]};
